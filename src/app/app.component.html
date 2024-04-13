@@ -1,5 +1,21 @@
-<div class="grid h-screen place-items-center">
-  <div class="font-bold text-3xl">
-    Fyle Internship Challenge
+<nav class="p-5 flex justify-between">
+  <div class="text-xl">Github.</div>
+  <app-user-input (searchUser)="searchUser($event)"></app-user-input>
+</nav>
+
+<div class="flex flex-col sm:flex-row">
+  <app-github-user [user]="user"></app-github-user>
+  <div class="sm:flex-1">
+    <div class="flex justify-between">
+      <p>Public repositories</p>
+      <div>
+        <p>Showing n results</p>
+        <select>
+          <option>10</option>
+        </select>
+      </div>
+    </div>
+    <app-github-repo-list [repositories]="repositories"></app-github-repo-list>
+    <div class="pagination-component">pagination-component</div>
   </div>
 </div>

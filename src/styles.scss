@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+$primaryBgColor: #141D2E;
+$primaryColor: #fff;
+
+body {
+    background-color: $primaryBgColor !important;
+    font-family: "Space Mono", monospace;
+    color: $primaryColor;
+}
