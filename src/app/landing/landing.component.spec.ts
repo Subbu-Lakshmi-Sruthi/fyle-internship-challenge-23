@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserInputComponent } from './user-input.component';
+import { LandingComponent } from './landing.component';
 
-describe('UserInputComponent', () => {
-  let component: UserInputComponent;
-  let fixture: ComponentFixture<UserInputComponent>;
+describe('LandingComponent', () => {
+  let component: LandingComponent;
+  let fixture: ComponentFixture<LandingComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UserInputComponent]
+      declarations: [LandingComponent]
     });
-    fixture = TestBed.createComponent(UserInputComponent);
+    fixture = TestBed.createComponent(LandingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

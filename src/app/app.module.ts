@@ -4,16 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from  '@angular/common/http';
 import { GithubRepoListComponent } from './github-repo-list/github-repo-list.component';
-import { GithubUserComponent } from './github-user/github-user.component';
-import { UserInputComponent } from './user-input/user-input.component';
+import { HeaderComponent } from './header/header.component';
 import { FormsModule } from '@angular/forms';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GithubRepoListComponent,
-    GithubUserComponent,
-    UserInputComponent
+    HeaderComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,

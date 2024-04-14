@@ -1,13 +1,42 @@
-<div class="github-repo-list md:grid lg:grid-cols-3 md:grid-cols-2">
-  <div *ngFor="let repo of repositories" style="display: flex; align-items: flex-start;">
-    <div class="secondary-bgColor m-2 p-4 rounded-xl" style="width: 100%;">
-      <a [href]="repo.html_url" target="_blank" class="text-xl">{{ repo.name }}</a>
-      <div class="text-sm">{{ repo.description || "No description given for this repo" }}</div>
-      <div class="flex flex-wrap">
-        <div *ngFor="let topic of repo.topics" class="github-topics"> 
-          {{ topic }}
+<main class="md:flex m-3">
+  <div class="max-w-sm secondary-bgColor p-4 rounded-xl">
+      <div class="flex">
+          <img src="{{user.avatar_url}}" alt="profile" class="w-20 github-user-profile"/>
+          <div class="m-3">
+              <div class="text-lg">{{user.name || user.login}}</div>
+              <div class="text-xs secondary-text">{{user.bio || "No bio available"}}</div>
+          </div>
+      </div>
+      <div class="primary-bgColor rounded-xl p-4 m-3">{{user.twitter_username || "No twitter account available"}}</div>
+  </div>  
+
+  <section class="flex-1 px-4">
+    <div class="flex justify-between items-center m-4">
+      <h2>Public Repositories</h2>
+      <div>
+        <span>Showing {{perPageCount}} results</span>
+        <select (change)="onChangePerPage()" [(ngModel)]="perPageCount" class="m-1 rounded-xl secondary-bgColor">
+          <option *ngFor="let count of perPageOptions" [value]="count">{{ count }}</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="github-repo-list md:grid lg:grid-cols-3 md:grid-cols-2">
+      <div *ngFor="let repo of repos" class="secondary-bgColor m-2 p-4 rounded-xl">
+        <a [href]="repo.html_url" target="_blank" class="text-xl">{{ repo.name }}</a>
+        <div class="text-sm ternary-text">{{ repo.description || "No description given for this repo" }}</div>
+        <div class="flex flex-wrap">
+          <div *ngFor="let topic of repo.topics" class="github-topics"> {{ topic }}</div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+
+    <div class="text-center">
+      <button (click)="onPrevious()">Previous</button>
+      <ng-container *ngFor="let page of getTotalPageArray()">
+        <button (click)="onPage(page)" [class.active]="currentPage === page" class="m-1 github-page-block p-2">{{ page }}</button>
+      </ng-container>
+      <button (click)="onNext()">Next</button>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,18 @@
+
+<header class="sm:p-5 pt-5 pl-5 flex justify-between flex-col sm:flex-row high-z">
+    <div class="flex items-center">
+      <img src="assets/github.png" alt="logo" class="inline m-2 logo"/>
+      <span class="text-xl z-20">Github.</span>
+    </div>
+
+    <div>
+      <input type="text" id="username" [(ngModel)]="username" class="h-10 secondary-bgColor rounded-xl sm:w-96 p-3"
+        placeholder="Search or jump to..."/>
+        
+      <button (click)="search()" class="primary-btn ml-2 high-z">Search</button>
+
+      <button (click)="toggleTheme()" class="inline-block ml-2">
+        <img [src]="isLightMode ? 'assets/night-mode.png' : 'assets/light-mode.png'" alt="toggle mode" class="inline-block" />
+      </button>
+    </div>
+</header>

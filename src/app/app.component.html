@@ -1,59 +1,9 @@
-<header class="sm:p-5 pt-5 pl-5 flex justify-between flex-col sm:flex-row high-z">
-  <div class="flex items-center">
-    <img src="assets/github.png" alt="logo" class="inline m-2 logo"/>
-    <span class="text-xl z-20">Github.</span>
-  </div>
-  <div>
-    <app-user-input (searchUser)="searchUser($event)"></app-user-input>
-    <button *ngIf="isLightMode" (click)="toggleTheme()">
-      <img src="assets/night-mode.png" alt="toggle mode" class="inline-block ml-2"/>
-    </button>
-    <button *ngIf="!isLightMode" (click)="toggleTheme()">
-        <img src="assets/light-mode.png" alt="toggle mode" class="inline-block ml-2"/>
-    </button>
-  </div>
-</header>
+<app-header (searchUser)="searchUser($event)"></app-header>
 
-<div *ngIf="isUserNotEmpty(); then explorerBlock else landingBlock"></div>
+<ng-container *ngIf="isUserNotEmpty(); else landingBlock">
+  <app-github-repo-list [user]="user"></app-github-repo-list>
+</ng-container>
 
 <ng-template #landingBlock>
-  <main>
-    <div class="text-center p-4 high-z">
-      <div class="text-5xl font-semibold">
-        Explore Github <span class="gradient-text">profiles</span> and <span class="gradient-text">repositories</span>
-      </div>
-      <p class="mt-5 ternary-text">Discover GitHub users, explore their repositories, twitter handle, topics, and more in one place! </p>
-      <iframe src="https://lottie.host/embed/3cbf55f1-9917-4736-a864-ca4198f59ea7/k59nWHqXXg.json" class="github-octocat"></iframe>
-    </div>
-    <div class="blue-animation"></div>
-    <div class="purple-animation"></div>
-  </main>
-</ng-template>
-
-<ng-template #explorerBlock>
-  <main class="md:flex m-3">
-    <app-github-user [user]="user"></app-github-user>
-  
-    <section class="flex-1 px-4">
-      <div class="flex justify-between items-center m-4">
-        <h2>Public Repositories</h2>
-        <div>
-          <span>Showing {{perPageCount}} results</span>
-          <select (change)="onChangePerPage()" [(ngModel)]="perPageCount" class="m-1 rounded-xl secondary-bgColor">
-            <option *ngFor="let count of perPageOptions" [value]="count">{{ count }}</option>
-          </select>
-        </div>
-      </div>
-      
-      <app-github-repo-list [repositories]="repositories"></app-github-repo-list>
-  
-      <div class="text-center">
-        <button (click)="onPrevious()">Previous</button>
-        <ng-container *ngFor="let page of getTotalPageArray()">
-          <button (click)="onPage(page)" [class.active]="currentPage === page" class="m-2">{{ page }}</button>
-        </ng-container>
-        <button (click)="onNext()">Next</button>
-      </div>
-    </section>
-  </main>
+  <app-landing></app-landing>
 </ng-template>

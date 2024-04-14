@@ -23,7 +23,7 @@ body {
     background-color: var(--primaryBgColor) !important;
     font-family: "Space Mono", monospace;
     color: var(--primaryColor);
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .secondary-text {
@@ -73,6 +73,7 @@ body {
 
 ::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
 }
  
 ::-webkit-scrollbar-track {
