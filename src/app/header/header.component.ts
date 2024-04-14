@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
     this.isLightMode = isLightMode;
     if(!this.isLightMode) {this.renderer.addClass(document.body, 'dark-mode');}
     else {this.renderer.removeClass(document.body, 'dark-mode');}
+    //Store user preference persistently
     localStorage.setItem('preferenceTheme', this.isLightMode ? 'light' : 'dark');
   }
 }

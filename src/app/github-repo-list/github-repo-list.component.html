@@ -7,10 +7,14 @@
               <div class="text-xs secondary-text">{{user.bio || "No bio available"}}</div>
           </div>
       </div>
-      <div class="primary-bgColor rounded-xl p-4 m-3">{{user.twitter_username || "No twitter account available"}}</div>
+      <div class="primary-bgColor rounded-xl p-4 m-3">
+        <div>📍 {{user.location || "No location available"}}</div>
+        <div>Twitter: {{user.twitter_username || "No twitter account available"}}</div>
+        <a [href]="user.html_url" target="_blank">🔗{{user.html_url}}</a>
+      </div>
   </div>  
 
-  <section class="flex-1 px-4">
+  <section *ngIf="user.public_repos > 0; else noRepoBlock" class="flex-1 px-4">
     <div class="flex justify-between items-center m-4">
       <h2>Public Repositories</h2>
       <div>
@@ -39,4 +43,8 @@
       <button (click)="onNext()">Next</button>
     </div>
   </section>
+
+  <ng-template #noRepoBlock>
+    <p class="text-center flex-1">No public repo found for the user.</p>
+  </ng-template>
 </main>

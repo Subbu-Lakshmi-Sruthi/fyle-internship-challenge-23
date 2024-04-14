@@ -30,7 +30,7 @@ export class AppComponent implements OnInit{
         this.user = user;
       },
       error => {
-        console.error('Error fetching User details:', error);
+        alert("User doesn't exist! Try another username.");
       }
     )
   }

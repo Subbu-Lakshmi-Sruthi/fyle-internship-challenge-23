@@ -19,7 +19,7 @@ export class GithubRepoListComponent implements OnChanges{
     private apiService: ApiService,
   ) {}
 
-  ngOnChanges(changes: any): void {
+  ngOnChanges(): void {
     this.currentPage = 1;
     this.perPageCount = 10;
     this.getRepos();
