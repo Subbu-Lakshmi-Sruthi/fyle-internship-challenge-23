@@ -47,7 +47,13 @@
       
       <app-github-repo-list [repositories]="repositories"></app-github-repo-list>
   
-      <div>Pagination Content</div>
+      <div class="text-center">
+        <button (click)="onPrevious()">Previous</button>
+        <ng-container *ngFor="let page of getTotalPageArray()">
+          <button (click)="onPage(page)" [class.active]="currentPage === page" class="m-2">{{ page }}</button>
+        </ng-container>
+        <button (click)="onNext()">Next</button>
+      </div>
     </section>
   </main>
 </ng-template>

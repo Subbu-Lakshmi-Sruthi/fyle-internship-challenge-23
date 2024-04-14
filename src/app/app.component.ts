@@ -22,10 +22,35 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {}
 
+  getTotalPageArray(): number[] {
+    const totalRepos = this.user.public_repos;
+    const totalPages = Math.ceil(totalRepos / this.perPageCount);
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
   toggleTheme() {
     this.isLightMode = !this.isLightMode;
     if(!this.isLightMode) {this.renderer.addClass(document.body, 'dark-mode');}
     else {this.renderer.removeClass(document.body, 'dark-mode');}
+  }
+
+  onNext(): void {
+    if (this.currentPage < this.user.public_repos) {
+      this.currentPage++;
+    }
+    this.getUserRepos(this.user.login);
+  }
+
+  onPrevious(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+    this.getUserRepos(this.user.login);
+  }
+
+  onPage(page: number): void {
+    this.currentPage = page;
+    this.getUserRepos(this.user.login);
   }
 
   searchUser(username: string) {

@@ -21,7 +21,8 @@ export class ApiService {
         name: repo.name,
         html_url: repo.html_url,
         description: repo.description,
-        topics: repo.topics
+        topics: repo.topics,
+        public_repos: repo.public_repos
       })))
     );
   }
