@@ -1,5 +1,3 @@
-<div>
-    <input type="text" id="username" [(ngModel)]="username">
-    <button (click)="search()">Search</button>
-</div>
-  
+<input type="text" id="username" [(ngModel)]="username" class="h-10 secondary-bgColor rounded-xl sm:w-96 p-3" 
+placeholder="Search or jump to..."/>
+<button (click)="search()" class="primary-btn ml-2">Search</button>

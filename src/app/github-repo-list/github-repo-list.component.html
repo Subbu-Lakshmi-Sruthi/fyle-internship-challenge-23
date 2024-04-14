@@ -1,4 +1,13 @@
-<div *ngFor="let repo of repositories">
-    <a [href]="repo.html_url" target="_blank">{{ repo.name }}</a>
+<div class="github-repo-list sm:grid grid-cols-3">
+  <div *ngFor="let repo of repositories" style="display: flex; align-items: flex-start;">
+    <div class="secondary-bgColor m-2 p-4 rounded-xl" style="width: 100%;">
+      <a [href]="repo.html_url" target="_blank" class="text-xl">{{ repo.name }}</a>
+      <div class="text-sm">{{ repo.description || "No description given for this repo" }}</div>
+      <div class="flex flex-wrap">
+        <div *ngFor="let topic of repo.topics" class="github-topics"> 
+          {{ topic }}
+        </div>
+      </div>
+    </div>
   </div>
-  
+</div>

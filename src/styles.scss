@@ -1,13 +1,79 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-$primaryBgColor: #141D2E;
-$primaryColor: #fff;
+:root {
+    --primaryBgColor: #e8e2e2;
+    --primaryColor: #121212;
+    --secondaryColor: #a78ed0;
+    --secondaryBgColor: #d5d5d5;
+    --ternaryColor: #747474;
+}
+
+body.dark-mode {
+    --primaryBgColor: #0d1117;
+    --primaryColor: #fff;
+    --secondaryColor: #9053f3;
+    --secondaryBgColor: #1b1e22;
+}
 
 body {
-    background-color: $primaryBgColor !important;
+    background-color: var(--primaryBgColor) !important;
     font-family: "Space Mono", monospace;
-    color: $primaryColor;
+    color: var(--primaryColor);
+    overflow: hidden;
+}
+
+.secondary-text {
+    color: var(--secondaryColor);
+}
+
+.ternary-text {
+    color: var(--ternaryColor);
+}
+
+.secondary-bgColor {
+    background-color: var(--secondaryBgColor);
+}
+
+.primary-bgColor {
+    background-color: var(--primaryBgColor);
+}
+
+.primary-btn {
+    background-color: var(--secondaryColor);
+    padding: 0.35rem 0.6rem;
+    border-radius: 0.75rem;    
+    animation: hue 10s infinite linear;
+}
+
+@keyframes hue {
+    from {
+      filter: hue-rotate(0deg);
+    }
+    to {
+      filter: hue-rotate(-360deg);
+    }
+}
+
+.primary-btn:hover {
+    box-shadow: rgba(253, 253, 253, 0.35) 0px 5px 15px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: var(--secondaryBgColor);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: var(--secondaryColor); 
 }
