@@ -16,9 +16,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     const preferenceTheme = localStorage.getItem('preferenceTheme');
     if(preferenceTheme) {
-      if(preferenceTheme=='light') this.isLightMode = false;
-      else if(preferenceTheme=='dark') this.isLightMode = true;
-      this.toggleTheme();
+      if(preferenceTheme=='light') this.setLightMode(true);
+      else if(preferenceTheme=='dark') this.setLightMode(false);
     }
   }
 
@@ -28,8 +27,8 @@ export class HeaderComponent implements OnInit {
     this.searchUser.emit(this.username);
   }
 
-  toggleTheme() {
-    this.isLightMode = !this.isLightMode;
+  setLightMode(isLightMode: boolean) {
+    this.isLightMode = isLightMode;
     if(!this.isLightMode) {this.renderer.addClass(document.body, 'dark-mode');}
     else {this.renderer.removeClass(document.body, 'dark-mode');}
     localStorage.setItem('preferenceTheme', this.isLightMode ? 'light' : 'dark');

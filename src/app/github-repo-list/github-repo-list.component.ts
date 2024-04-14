@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -6,11 +6,12 @@ import { ApiService } from '../services/api.service';
   templateUrl: './github-repo-list.component.html',
   styleUrls: ['./github-repo-list.component.scss']
 })
-export class GithubRepoListComponent implements OnInit{
+export class GithubRepoListComponent implements OnChanges{
   perPageCount: number = 10;
   currentPage: number = 1;
   perPageOptions: number[] = [10, 20, 50, 100];
   repos: any[] = [];
+  totalPages: number = 0;
 
   @Input() user: any = {};
 
@@ -18,17 +19,19 @@ export class GithubRepoListComponent implements OnInit{
     private apiService: ApiService,
   ) {}
 
-  ngOnInit(): void {
+  ngOnChanges(changes: any): void {
+    this.currentPage = 1;
+    this.perPageCount = 10;
     this.getRepos();
   }
 
   getTotalPageArray(): number[] {
-    const totalPages = Math.ceil(this.user.public_repos / this.perPageCount);
-    return Array.from({ length: totalPages }, (_, index) => index + 1);
+    this.totalPages = Math.ceil(this.user.public_repos / this.perPageCount);
+    return Array.from({ length: this.totalPages }, (_, index) => index + 1);
   }
 
   onNext(): void {
-    if (this.currentPage < this.user.public_repos) {
+    if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.getRepos();
     }

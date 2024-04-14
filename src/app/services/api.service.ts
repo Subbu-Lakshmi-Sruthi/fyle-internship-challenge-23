@@ -7,7 +7,7 @@ import { map, shareReplay } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl: string = 'https://api.github.com';
+  apiUrl: string = 'https://api.github.com';
   private cache = new Map<string, Observable<any[]>>();
 
   constructor(private http: HttpClient) { }

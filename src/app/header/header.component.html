@@ -11,7 +11,7 @@
         
       <button (click)="search()" class="primary-btn ml-2 high-z">Search</button>
 
-      <button (click)="toggleTheme()" class="inline-block ml-2">
+      <button (click)="setLightMode(!isLightMode)" class="inline-block ml-2">
         <img [src]="isLightMode ? 'assets/night-mode.png' : 'assets/light-mode.png'" alt="toggle mode" class="inline-block" />
       </button>
     </div>
