@@ -1,7 +1,8 @@
 <main class="md:flex m-3">
+  <!-- User Profile Block -->
   <div class="max-w-sm secondary-bgColor p-4 rounded-xl">
       <div class="flex">
-          <img src="{{user.avatar_url}}" alt="profile" class="w-20 github-user-profile"/>
+          <img [src]="user.avatar_url" alt="profile" class="w-20 github-user-profile"/>
           <div class="m-3">
               <div class="text-lg">{{user.name || user.login}}</div>
               <div class="text-xs secondary-text">{{user.bio || "No bio available"}}</div>
@@ -12,9 +13,10 @@
         <div>Twitter: {{user.twitter_username || "No twitter account available"}}</div>
         <a [href]="user.html_url" target="_blank">🔗{{user.html_url}}</a>
       </div>
-  </div>  
+  </div>
 
-  <section *ngIf="user.public_repos > 0; else noRepoBlock" class="flex-1 px-4">
+  <!-- Skeleton Loading for Repositories -->
+  <section *ngIf="loadingRepos; else repoListBlock" class="flex-1 px-4">
     <div class="flex justify-between items-center m-4">
       <h2>Public Repositories</h2>
       <div>
@@ -26,11 +28,46 @@
     </div>
     
     <div class="github-repo-list md:grid lg:grid-cols-3 md:grid-cols-2">
-      <div *ngFor="let repo of repos" class="secondary-bgColor m-2 p-4 rounded-xl">
-        <a [href]="repo.html_url" target="_blank" class="text-xl">{{ repo.name }}</a>
-        <div class="text-sm ternary-text">{{ repo.description || "No description given for this repo" }}</div>
+      <div class="secondary-bgColor m-2 p-4 rounded-xl animate-pulse">
+        <div class="bg-gray-300 h-5 w-40 rounded m-2"></div>
+        <div class="ternary-text bg-gray-300 h-3 w-60 rounded m-2"></div>
         <div class="flex flex-wrap">
-          <div *ngFor="let topic of repo.topics" class="github-topics"> {{ topic }}</div>
+          <div class="github-topics bg-gray-300 h-3 w-20 rounded inline-block"></div>
+        </div>
+      </div>
+      <div class="secondary-bgColor m-2 p-4 rounded-xl animate-pulse">
+        <div class="bg-gray-300 h-5 w-40 rounded m-2"></div>
+        <div class="ternary-text bg-gray-300 h-3 w-60 rounded m-2"></div>
+        <div class="flex flex-wrap">
+          <div class="github-topics bg-gray-300 h-3 w-20 rounded inline-block"></div>
+        </div>
+      </div>
+      <div class="secondary-bgColor m-2 p-4 rounded-xl animate-pulse">
+        <div class="bg-gray-300 h-5 w-40 rounded m-2"></div>
+        <div class="ternary-text bg-gray-300 h-3 w-60 rounded m-2"></div>
+        <div class="flex flex-wrap">
+          <div class="github-topics bg-gray-300 h-3 w-20 rounded inline-block"></div>
+        </div>
+      </div>
+      <div class="secondary-bgColor m-2 p-4 rounded-xl animate-pulse">
+        <div class="bg-gray-300 h-5 w-40 rounded m-2"></div>
+        <div class="ternary-text bg-gray-300 h-3 w-60 rounded m-2"></div>
+        <div class="flex flex-wrap">
+          <div class="github-topics bg-gray-300 h-3 w-20 rounded inline-block"></div>
+        </div>
+      </div>
+      <div class="secondary-bgColor m-2 p-4 rounded-xl animate-pulse">
+        <div class="bg-gray-300 h-5 w-40 rounded m-2"></div>
+        <div class="ternary-text bg-gray-300 h-3 w-60 rounded m-2"></div>
+        <div class="flex flex-wrap">
+          <div class="github-topics bg-gray-300 h-3 w-20 rounded inline-block"></div>
+        </div>
+      </div>
+      <div class="secondary-bgColor m-2 p-4 rounded-xl animate-pulse">
+        <div class="bg-gray-300 h-5 w-40 rounded m-2"></div>
+        <div class="ternary-text bg-gray-300 h-3 w-60 rounded m-2"></div>
+        <div class="flex flex-wrap">
+          <div class="github-topics bg-gray-300 h-3 w-20 rounded inline-block"></div>
         </div>
       </div>
     </div>
@@ -44,6 +81,40 @@
     </div>
   </section>
 
+  <!-- Repository List Block -->
+  <ng-template #repoListBlock>
+    <section class="flex-1 px-4">
+      <div class="flex justify-between items-center m-4">
+        <h2>Public Repositories</h2>
+        <div>
+          <span>Showing {{perPageCount}} results</span>
+          <select (change)="onChangePerPage()" [(ngModel)]="perPageCount" class="m-1 rounded-xl secondary-bgColor">
+            <option *ngFor="let count of perPageOptions" [value]="count">{{ count }}</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="github-repo-list md:grid lg:grid-cols-3 md:grid-cols-2">
+        <div *ngFor="let repo of repos" class="secondary-bgColor m-2 p-4 rounded-xl">
+          <a [href]="repo.html_url" target="_blank" class="text-xl">{{ repo.name }}</a>
+          <div class="text-sm ternary-text">{{ repo.description || "No description given for this repo" }}</div>
+          <div class="flex flex-wrap">
+            <div *ngFor="let topic of repo.topics" class="github-topics"> {{ topic }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button (click)="onPrevious()">Previous</button>
+        <ng-container *ngFor="let page of getTotalPageArray()">
+          <button (click)="onPage(page)" [class.active]="currentPage === page" class="m-1 github-page-block p-2">{{ page }}</button>
+        </ng-container>
+        <button (click)="onNext()">Next</button>
+      </div>
+    </section>
+  </ng-template>
+
+  <!-- No Repository Block -->
   <ng-template #noRepoBlock>
     <p class="text-center flex-1">No public repo found for the user.</p>
   </ng-template>

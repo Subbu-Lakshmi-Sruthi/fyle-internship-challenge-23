@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class GithubRepoListComponent implements OnChanges{
   perPageOptions: number[] = [10, 20, 50, 100];
   repos: any[] = [];
   totalPages: number = 0;
+  loadingRepos: boolean = true;
 
   @Input() user: any = {};
 
@@ -20,9 +21,14 @@ export class GithubRepoListComponent implements OnChanges{
   ) {}
 
   ngOnChanges(): void {
+    this.resetOnChange();
+    this.getRepos();
+  }
+
+  resetOnChange() {
     this.currentPage = 1;
     this.perPageCount = 10;
-    this.getRepos();
+    this.loadingRepos = true;
   }
 
   getTotalPageArray(): number[] {
@@ -33,6 +39,7 @@ export class GithubRepoListComponent implements OnChanges{
   onNext(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
+      this.loadingRepos = true;
       this.getRepos();
     }
   }
@@ -40,17 +47,20 @@ export class GithubRepoListComponent implements OnChanges{
   onPrevious(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
+      this.loadingRepos = true;
       this.getRepos();
     }
   }
 
   onPage(page: number): void {
     this.currentPage = page;
+    this.loadingRepos = true;
     this.getRepos();
   }
 
   onChangePerPage() {
     this.currentPage = 1;
+    this.loadingRepos = true;
     this.getRepos();
   }
 
@@ -58,6 +68,7 @@ export class GithubRepoListComponent implements OnChanges{
     this.apiService.getUserRepos(this.user.login, this.currentPage, this.perPageCount).subscribe(
       repos => {
         this.repos = repos;
+        this.loadingRepos = false;
       },
       error => {
         console.error('Error fetching repositories:', error);

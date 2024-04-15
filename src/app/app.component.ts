@@ -16,15 +16,11 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {}
 
-  searchUser(username: string) {
-    this.getUserDetails(username);
-  }
-
   isUserNotEmpty(): boolean {
     return Object.keys(this.user).length !== 0;
   }
 
-  getUserDetails(username: string) {
+  searchUser(username: string) {
     this.apiService.getUserDetails(username).subscribe(
       user => {
         this.user = user;
