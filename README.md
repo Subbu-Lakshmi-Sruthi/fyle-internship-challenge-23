@@ -1,5 +1,5 @@
-# Tax Calc
-This repository is a fork containing the codebase for a qualification task designed for candidates seeking the Frontend Development intern'24 position at Fyle.
+# Fyle frontend Task
+This repository is a fork containing the codebase for a qualification task designed for candidates seeking the Frontend Development intern'24 position at Fyle. It is an application that takes a GitHub username as input and displays the public Github repositories belonging to the user.
 # Unit tests
 As part of the challenge, unit tests have been created for the header component and the api.service. Both can be executed using the command:
 ```  
